@@ -42,7 +42,7 @@ export default function Editor({ vertexShader, fragmentShader, onCodeChange, onM
     }
   }
 
-  const editorDidMount: OnMount = (editor, monaco) => {
+  const editorDidMount: OnMount = (editor, _) => {
     editorRef!.current = editor;
   }
 
