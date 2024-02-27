@@ -7,6 +7,9 @@
 Neydır(which is a bad pun) is a React based simple real-time shader editor. 
 It uses [three.js](https://threejs.org) for rendering and [Monaco Editor](https://github.com/microsoft/monaco-editor) for editing the shader code. Vite is used for development and bundling.
 
+## Demo
+[Neydir on Github Pages](https://talhaorak.github.io/neydir/)
+
 ## Features
 - Real-time shader editing
 
