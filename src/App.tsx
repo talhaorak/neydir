@@ -2,24 +2,32 @@ import Split from 'react-split'
 import './App.css'
 import Renderer from './Renderer'
 import Editor from './Editor'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Modal } from 'react-bootstrap'
 
+const defaultVertexShader = `
+varying vec2 vUv;
+void main() {
+    vUv = uv;
+    gl_Position = vec4(position, 1.0);
+}`;
+
+const defaultFragmentShader = `
+uniform float time;
+uniform vec2 resolution;
+uniform float frame;
+uniform vec2 mouse;
+varying vec2 vUv;
+void main() {
+    vec2 p = (2.0 * gl_FragCoord.xy - resolution) / min(resolution.x, resolution.y);
+    vec3 col = 0.5 + 0.5 * cos(time + p.xyx + vec3(0, 2, 4));
+    gl_FragColor = vec4(col, 1.0);
+}`;
+
 function App() {
-  const [vertexShader, setVertexShader] = useState<string>('');
-  const [fragmentShader, setFragmentShader] = useState<string>('');
+  const [vertexShader, setVertexShader] = useState<string>(defaultVertexShader);
+  const [fragmentShader, setFragmentShader] = useState<string>(defaultFragmentShader);
   const [showAbout, setShowAbout] = useState<boolean>(false);
-
-  // fetch default shaders
-  useEffect(() => {
-    fetch('/shaderFiles/defaultVertex.glsl')
-      .then(response => response.text())
-      .then(data => setVertexShader(data));
-
-    fetch('/shaderFiles/defaultFragment.glsl')
-      .then(response => response.text())
-      .then(data => setFragmentShader(data));
-  }, []);
 
   const handleCodeChange = (file: string, code: string) => {
     if (file === 'vertex.glsl') {
