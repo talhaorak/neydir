@@ -13,6 +13,7 @@ It uses [three.js](https://threejs.org) for rendering and [Monaco Editor](https:
 ## How to run
 - Clone the repository
 - Run `npm install`
+- Change the base path in `vite.config.js` if necessary(currently it is set to run under Github Pages)
 - Run `npm run dev`
 
 ## How to build
